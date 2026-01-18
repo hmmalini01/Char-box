@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 25px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            resize: none;
+            font-size: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #4f46e5;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .remaining {
+            font-weight: bold;
+        }
+
+        .warning {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Message</h2>
+
+    <textarea id="message" maxlength="150"
+        placeholder="Type your message..."></textarea>
+
+    <div class="counter">
+        <span>Characters: <span id="typed">0</span></span>
+        <span class="remaining">
+            Remaining: <span id="remaining">150</span>
+        </span>
+    </div>
+</div>
+
+<script>
+    const textarea = document.getElementById("message");
+    const typed = document.getElementById("typed");
+    const remaining = document.getElementById("remaining");
+
+    const maxLength = textarea.maxLength;
+
+    textarea.addEventListener("input", () => {
+        const currentLength = textarea.value.length;
+
+        typed.textContent = currentLength;
+        remaining.textContent = maxLength - currentLength;
+
+        // warning color when close to limit
+        if (maxLength - currentLength <= 20) {
+            remaining.classList.add("warning");
+        } else {
+            remaining.classList.remove("warning");
+        }
+    });
+</script>
+
+</body>
+</html>
